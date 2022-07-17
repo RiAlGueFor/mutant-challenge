@@ -53,7 +53,7 @@ Cuando las cadenas de ADN son válidas, sin importar que tras la validación sea
 
 Este Recurso se encuentra definido en AWS API Gateway como 
 
-![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/api-gateway-POST.png)
+![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/api-gateway-POST%20-%20copia.png)
 
 ### Recurso Stats
 
