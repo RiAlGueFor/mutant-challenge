@@ -64,6 +64,10 @@ curl --location --request GET 'https://vcg41iv3i4.execute-api.sa-east-1.amazonaw
 
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/stats-GET.png)
 
+Este Recurso se encuentra definido en AWS API Gateway como 
+
+![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/api-gateway-GET.png)
+
 ## Cobertura
 
 
