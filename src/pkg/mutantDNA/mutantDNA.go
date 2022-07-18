@@ -1,9 +1,10 @@
 package mutantDNA
 
 import(
+  "github.com/RiAlGueFor/mutant-challenge/src/pkg/validators"
   "encoding/json"
   "errors"
-	"net/http"
+  "strings"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-sdk-go/aws"
   "github.com/aws/aws-sdk-go/service/dynamodb"
@@ -16,7 +17,6 @@ var (
   ErrorFailedToUnmarshalRecord = "Failed to Unmarshall Record"
   ErrorInvalidDNAChain = "Invalid DNA Chain"
   ErrorFailedToFetchRecord = "Failed To Fetch Record"
-  ErrorFailedToUnmarshalRecord = "Failed to Unmarshall Record"
   ErrorCouldNotMarshalItem = "Could not Marshal Item"
   ErrorCouldNotDynamoPutItem = "Could not Dynamo Put Item"
 )

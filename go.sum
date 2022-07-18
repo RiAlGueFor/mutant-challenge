@@ -1,3 +1,5 @@
+github.com/RiAlGueFor/mutant-challenge v0.0.0-20220718152330-540a5272c101 h1:OI7cL4Vpq3DcfAkmf+geHcBoEaGlXF6UompkOenvnmg=
+github.com/RiAlGueFor/mutant-challenge v0.0.0-20220718152330-540a5272c101/go.mod h1:xLouRYokeKVvRywkAmG04J4eTLqrEzFePrV/7/ZDhN0=
 github.com/aws/aws-lambda-go v1.32.1 h1:ls0FU8Mt7ayJszb945zFkUfzxhkQTli8mpJstVcDtCY=
 github.com/aws/aws-lambda-go v1.32.1/go.mod h1:jwFe2KmMsHmffA1X2R09hH6lFzJQxzI8qK17ewzbQMM=
 github.com/aws/aws-sdk-go v1.44.56 h1:bT+lExwagH7djxb6InKUVkEKGPAj5aAPnV85/m1fKro=
