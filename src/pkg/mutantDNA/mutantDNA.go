@@ -29,7 +29,7 @@ type DNARecord struct {
   IsMutant bool `json:"isMutant, omitempty"`
 }
 
-func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*dynamoDB_API.DNARecord, error){
+func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
   var dnaChain DNAChain
   if err := json.Unmarshal([]byte(req.Body), &dnaChain); err!=nil {
     return nil, errors.New(ErrorFailedToUnmarshalRecord)
