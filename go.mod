@@ -1,3 +1,3 @@
-module mutant-challenge-v2
+module mutant-challenge
 
 go 1.18
