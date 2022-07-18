@@ -19,12 +19,7 @@ type DNAChain struct {
   DNA []string `json:"dna, omitempty"`
 }
 
-type DNARecord struct {
-  DNA string `json:"dna, omitempty"`
-  IsMutant bool `json:"isMutant, omitempty"`
-}
-
-func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
+func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*dynamoDB_API.DNARecord, error){
   var dnaChain DNAChain
   if err := json.Unmarshal([]byte(req.Body), &dnaChain); err!=nil {
     return nil, errors.New(ErrorFailedToUnmarshalRecord)
@@ -35,7 +30,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
     return nil, errors.New(ErrorInvalidDNAChain)
   }
   // 2 - Check if DNA was previously validated. If it was, return the isMutant flag
-  var dnaRecord DNARecord
+  var dnaRecord dynamoDB_API.DNARecord
   dnaJoin := strings.Join(dnaChain.DNA, "-")
   dnaJoin = strings.Replace(dnaJoin,"-","\",\"",-1)
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"

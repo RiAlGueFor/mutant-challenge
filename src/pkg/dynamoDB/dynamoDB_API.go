@@ -1,7 +1,6 @@
 package dynamoDB_API
 
 import (
-  "github.com/RiAlGueFor/mutant-challenge/src/pkg/mutantDNA"
   "github.com/aws/aws-sdk-go/service/dynamodb"
   "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
   "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
@@ -16,7 +15,12 @@ var (
   ErrorCouldNotDynamoPutItem = "Could not Dynamo Put Item"
 )
 
-func FetchDNARecord(dnaString string, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*mutantDNA.DNARecord, error){
+type DNARecord struct {
+  DNA string `json:"dna, omitempty"`
+  IsMutant bool `json:"isMutant, omitempty"`
+}
+
+func FetchDNARecord(dnaString string, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
   input := &dynamodb.GetItemInput{
 		Key: map[string]*dynamodb.AttributeValue{
 			"dna":{
@@ -31,7 +35,7 @@ func FetchDNARecord(dnaString string, tableName string, dynaClient dynamodbiface
 		return nil, errors.New(ErrorFailedToFetchRecord)
 	}
 
-	item := new(mutantDNA.DNARecord)
+	item := new(DNARecord)
 	err = dynamodbattribute.UnmarshalMap(result.Item, item)
 	if err != nil {
 		return nil, errors.New(ErrorFailedToUnmarshalRecord)
@@ -62,7 +66,7 @@ func FetchDNARecords(tableName string, dynaClient dynamodbiface.DynamoDBAPI, isM
   return float32(len(result.Items)), nil
 }
 
-func CreateRecordDNA(dnaRecord mutantDNA.DNARecord, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*mutantDNA.DNARecord, error){
+func CreateRecordDNA(dnaRecord DNARecord, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
   av, err := dynamodbattribute.MarshalMap(dnaRecord)
 
   if err!=nil{
