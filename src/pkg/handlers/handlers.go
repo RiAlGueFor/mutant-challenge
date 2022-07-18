@@ -2,7 +2,6 @@ package handlers
 
 import(
 	"github.com/RiAlGueFor/mutant-challenge/src/pkg/mutantDNA"
-  "github.com/RiAlGueFor/mutant-challenge/src/pkg/dynamoDB"
 	"net/http"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-sdk-go/aws"
@@ -28,13 +27,13 @@ type Stats struct{
 func GetStats(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
 	*events.APIGatewayProxyResponse, error,
 ){
-  countMutantDNA, err:=dynamoDB_API.FetchDNARecords(tableName,dynaClient,true)
+  countMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,true)
   if err!=nil {
     return apiResponse(http.StatusBadRequest,ErrorBody{
       aws.String(err.Error()),
     })
   }
-  countNoMutantDNA, err:=dynamoDB_API.FetchDNARecords(tableName,dynaClient,false)
+  countNoMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,false)
   if err!=nil {
     return apiResponse(http.StatusBadRequest,ErrorBody{
       aws.String(err.Error()),

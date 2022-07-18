@@ -3,20 +3,30 @@ package mutantDNA
 import(
   "encoding/json"
   "errors"
-  "github.com/RiAlGueFor/mutant-challenge/src/pkg/dynamoDB"
 	"net/http"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
+  "github.com/aws/aws-sdk-go/service/dynamodb"
+  "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
+  "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+  "github.com/aws/aws-sdk-go/service/dynamodb/expression"
 )
 
 var (
   ErrorFailedToUnmarshalRecord = "Failed to Unmarshall Record"
   ErrorInvalidDNAChain = "Invalid DNA Chain"
+  ErrorFailedToFetchRecord = "Failed To Fetch Record"
+  ErrorFailedToUnmarshalRecord = "Failed to Unmarshall Record"
+  ErrorCouldNotMarshalItem = "Could not Marshal Item"
+  ErrorCouldNotDynamoPutItem = "Could not Dynamo Put Item"
 )
 
 type DNAChain struct {
   DNA []string `json:"dna, omitempty"`
+}
+type DNARecord struct {
+  DNA string `json:"dna, omitempty"`
+  IsMutant bool `json:"isMutant, omitempty"`
 }
 
 func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*dynamoDB_API.DNARecord, error){
@@ -30,11 +40,11 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
     return nil, errors.New(ErrorInvalidDNAChain)
   }
   // 2 - Check if DNA was previously validated. If it was, return the isMutant flag
-  var dnaRecord dynamoDB_API.DNARecord
+  var dnaRecord DNARecord
   dnaJoin := strings.Join(dnaChain.DNA, "-")
   dnaJoin = strings.Replace(dnaJoin,"-","\",\"",-1)
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"
-  currentDNA, _:=dynamoDB_API.FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
+  currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
     if currentDNA.IsMutant{
       return &dnaRecord, nil
@@ -52,7 +62,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
     }
   }
   // 4 - After Checking the DNA, Store DNA Chain and Validation Result on DynamoDB
-  _, err:= dynamoDB_API.CreateRecordDNA(dnaRecord,tableName,dynaClient)
+  _, err:= CreateRecordDNA(dnaRecord,tableName,dynaClient)
   if err!=nil{
     return nil, err
   }
@@ -158,4 +168,69 @@ func ScanningDNA(dna []string, letter2Check string) bool {
     }
   }
   return false
+}
+
+func FetchDNARecord(dnaString string, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
+  input := &dynamodb.GetItemInput{
+		Key: map[string]*dynamodb.AttributeValue{
+			"dna":{
+				S: aws.String(dnaString),
+			},
+		},
+		TableName: aws.String(tableName),
+	}
+
+	result, err := dynaClient.GetItem(input)
+	if err!= nil {
+		return nil, errors.New(ErrorFailedToFetchRecord)
+	}
+
+	item := new(DNARecord)
+	err = dynamodbattribute.UnmarshalMap(result.Item, item)
+	if err != nil {
+		return nil, errors.New(ErrorFailedToUnmarshalRecord)
+	}
+	return item, nil
+}
+
+func FetchDNARecords(tableName string, dynaClient dynamodbiface.DynamoDBAPI, isMutant bool)(float32, error) {
+  filt := expression.Name("isMutant").Equal(expression.Value(isMutant))
+  expr, err := expression.NewBuilder().WithFilter(filt).Build()
+
+  if err != nil {
+      return 0, errors.New(ErrorFailedToFetchRecord)
+  }
+
+  params := &dynamodb.ScanInput{
+      ExpressionAttributeNames:  expr.Names(),
+      ExpressionAttributeValues: expr.Values(),
+      FilterExpression:          expr.Filter(),
+      ProjectionExpression:      expr.Projection(),
+      TableName:                 aws.String(tableName),
+  }
+
+  result, err := dynaClient.Scan(params)
+  if err!=nil {
+    return 0, errors.New(ErrorFailedToFetchRecord)
+  }
+  return float32(len(result.Items)), nil
+}
+
+func CreateRecordDNA(dnaRecord DNARecord, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
+  av, err := dynamodbattribute.MarshalMap(dnaRecord)
+
+  if err!=nil{
+    return nil, errors.New(ErrorCouldNotMarshalItem)
+  }
+
+  input := &dynamodb.PutItemInput{
+		Item: av,
+		TableName: aws.String(tableName),
+	}
+
+  _, err = dynaClient.PutItem(input)
+  if err!=nil{
+    return nil, errors.New(ErrorCouldNotDynamoPutItem)
+  }
+  return &dnaRecord, nil
 }
