@@ -19,8 +19,8 @@ type ErrorBody struct{
 }
 
 type Stats struct{
-  MutantDNA int `json:"count_mutant_dna, omitempty"`
-  HumanDNA int `json:"count_human_dna, omitempty"`
+  MutantDNA float32 `json:"count_mutant_dna, omitempty"`
+  HumanDNA float32 `json:"count_human_dna, omitempty"`
   Ratio float32 `json:"ratio, omitempty"`
 }
 
