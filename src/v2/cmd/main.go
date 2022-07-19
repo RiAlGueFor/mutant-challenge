@@ -35,10 +35,8 @@ func handler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse
     switch req.HTTPMethod {
       case "GET":
         return handlers.GetStats(req,tableName,dynaClient)
-        // return handlers.GetStats(req)
       case "POST":
         return handlers.CheckMutantDNA(req,tableName,dynaClient)
-        // return handlers.CheckMutantDNA(req)
       default:
         return handlers.UnhandledMethod()
     }

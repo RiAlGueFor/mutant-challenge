@@ -26,7 +26,6 @@ type DNARecord struct {
 }
 
 func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
-// func InitScanning(req events.APIGatewayProxyRequest)(*DNARecord, error){
   var dnaChain DNAChain
   if err := json.Unmarshal([]byte(req.Body), &dnaChain); err!=nil {
     return nil, errors.New(ErrorFailedToUnmarshalRecord)
@@ -41,10 +40,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   dnaJoin := strings.Join(dnaChain.DNA, "-")
   dnaJoin = strings.Replace(dnaJoin,"-","\",\"",-1)
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"
-
-  // ConfigureDynamoDB()
   currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
-  // currentDNA, _:=FetchDNARecord(dnaRecord.DNA)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
     if currentDNA.IsMutant{
       return &dnaRecord, nil
@@ -63,7 +59,6 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   }
   // 4 - After Checking the DNA, Store DNA Chain and Validation Result on DynamoDB
   _, err:= CreateRecordDNA(dnaRecord,tableName,dynaClient)
-  // insertItem, err:= CreateRecordDNA(dnaRecord)
   if err!=nil{
     return nil, err
   }
