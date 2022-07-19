@@ -30,7 +30,7 @@ func GetStats(req events.APIGatewayProxyRequest, tableName string, dynaClient dy
 // func GetStats(req events.APIGatewayProxyRequest)(
 // 	*events.APIGatewayProxyResponse, error,
 // ){
-	mutantDNA.ConfigureDynamoDB()
+	// mutantDNA.ConfigureDynamoDB()
   countMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,true)
 	// countMutantDNA, err:=mutantDNA.FetchDNARecords(true)
   if err!=nil {
