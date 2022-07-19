@@ -63,12 +63,12 @@ func InitScanning(req events.APIGatewayProxyRequest)(*DNARecord, error){
   }
   // 4 - After Checking the DNA, Store DNA Chain and Validation Result on DynamoDB
   // _, err:= CreateRecordDNA(dnaRecord,tableName,dynaClient)
-  _, err:= CreateRecordDNA(dnaRecord)
+  insertItem, err:= CreateRecordDNA(dnaRecord)
   if err!=nil{
     return nil, err
   }
 
-  if dnaRecord.IsMutant {
+  if insertItem.IsMutant {
     return &dnaRecord, nil
   } else {
     return nil, errors.New("")
