@@ -54,8 +54,14 @@ func GetStats(req events.APIGatewayProxyRequest, tableName string, dynaClient dy
 }
 
 func CheckMutantDNA(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*events.APIGatewayProxyResponse, error){
-  _, err := mutantDNA.InitScanning(req, tableName, dynaClient)
-	if err!=nil {
+  result, err := mutantDNA.InitScanning(req, tableName, dynaClient)
+	if result!=nil{
+		if result.IsMutant{
+      return apiResponse(http.StatusOK, nil)
+    } else {
+      return apiResponse(http.StatusForbidden, nil)
+    }
+	} else if err!=nil {
     if err.Error()!="" {
       return apiResponse(http.StatusBadRequest, ErrorBody{
   			aws.String(err.Error()),
