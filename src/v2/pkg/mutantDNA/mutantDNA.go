@@ -43,7 +43,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
     if currentDNA.IsMutant{
-      return &dnaRecord, nil
+      return &dnaRecord, errors.New("BD")
     } else {
       return nil, errors.New("")
     }
@@ -64,7 +64,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   }
 
   if dnaRecord.IsMutant {
-    return &dnaRecord, nil
+    return &dnaRecord, errors.New("Fin")
   } else {
     return nil, errors.New("")
   }
