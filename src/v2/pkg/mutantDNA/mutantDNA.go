@@ -42,7 +42,8 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"
 
   ConfigureDynamoDB()
-  currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
+  // currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
+  currentDNA, _:=FetchDNARecord(dnaRecord.DNA)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
     if currentDNA.IsMutant{
       return &dnaRecord, nil
@@ -60,7 +61,8 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
     }
   }
   // 4 - After Checking the DNA, Store DNA Chain and Validation Result on DynamoDB
-  _, err:= CreateRecordDNA(dnaRecord,tableName,dynaClient)
+  // _, err:= CreateRecordDNA(dnaRecord,tableName,dynaClient)
+  _, err:= CreateRecordDNA(dnaRecord)
   if err!=nil{
     return nil, err
   }

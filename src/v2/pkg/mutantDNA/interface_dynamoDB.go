@@ -2,6 +2,7 @@ package mutantDNA
 
 import(
   "os"
+  "github.com/aws/aws-sdk-go/aws/session"
   "errors"
 	"github.com/aws/aws-sdk-go/aws"
   "github.com/aws/aws-sdk-go/service/dynamodb"
