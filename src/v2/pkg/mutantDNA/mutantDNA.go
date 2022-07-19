@@ -6,7 +6,7 @@ import(
   "errors"
   "strings"
 	"github.com/aws/aws-lambda-go/events"
-  "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
+  // "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 )
 
 var (
@@ -25,7 +25,8 @@ type DNARecord struct {
   IsMutant bool `json:"isMutant, omitempty"`
 }
 
-func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
+// func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
+func InitScanning(req events.APIGatewayProxyRequest)(*DNARecord, error){
   var dnaChain DNAChain
   if err := json.Unmarshal([]byte(req.Body), &dnaChain); err!=nil {
     return nil, errors.New(ErrorFailedToUnmarshalRecord)
