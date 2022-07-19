@@ -6,11 +6,7 @@ import(
   "errors"
   "strings"
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-sdk-go/aws"
-  "github.com/aws/aws-sdk-go/service/dynamodb"
   "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
-  "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-  "github.com/aws/aws-sdk-go/service/dynamodb/expression"
 )
 
 var (
