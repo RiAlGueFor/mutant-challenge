@@ -31,7 +31,6 @@ func ConfigureDynamoDB() error {
     return errors.New(ErrorCouldNotConnectToAWS)
   }
 
-  dynaClient = dynamodb.New(awsSession)
 	svc := dynamodb.New(awsSession)
 	Dyna.Db = dynamodbiface.DynamoDBAPI(svc)
   return nil

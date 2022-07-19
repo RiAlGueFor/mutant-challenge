@@ -6,7 +6,7 @@ import(
   "errors"
   "strings"
 	"github.com/aws/aws-lambda-go/events"
-  "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
+  // "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 )
 
 var (
@@ -45,9 +45,7 @@ func InitScanning(req events.APIGatewayProxyRequest)(*DNARecord, error){
 
   err:=ConfigureDynamoDB()
 	if err!=nil {
-    return apiResponse(http.StatusBadRequest,ErrorBody{
-      aws.String(err.Error()),
-    })
+    return nil, err
   }
   currentDNA, _:=FetchDNARecord(dnaRecord.DNA)
   // currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
