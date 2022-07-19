@@ -11,12 +11,11 @@ El API expuesto podra ser consumido para realizar validaciones de ADN, solo las 
 
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/ejemplos_DNA.png)
 
-El API sera expuesta desde AWS usando una funcion lambda de la siguiente manera:
+El API sera expuesta desde AWS usando una funcion lambda definida de la siguiente manera:
 
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/api-gateway.png)
 
 ### Recurso Mutants
-
 Este recurso sera expuesto con el metodo POST y validara si la secuencia de ADN pertenece a un humano o a un mutante. En caso de verificar un mutante, el metodo  devolverá un HTTP 200-OK, en caso contrario un 403-Forbidden
 
 cURL de consumo: 
@@ -34,15 +33,15 @@ curl --location --request POST 'https://vcg41iv3i4.execute-api.sa-east-1.amazona
     ]
 }'
 
-Resultado Humano
+- Resultado Humano
 
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/mutant-POST-Humano.png)
 
-Resultado Mutante
+- Resultado Mutante
 
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/mutant-POST-Mutante.png)
 
-Cadenas de ADN invalidas
+- Cadenas de ADN invalidas
 
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/mutant-POST-IncorrectSize.png)
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/mutant-POST-IncorrectChain.png)
