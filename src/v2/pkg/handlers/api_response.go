@@ -6,11 +6,11 @@ import (
 )
 
 func apiResponse(status int, body interface{})(*events.APIGatewayProxyResponse, error){
-  resp:=events.APIGatewayProxyResponse(Headers: map[string]string["Content-Type:":"application/json"])
-  resp.StatusCode = StatusCode
-
-  stringBody, _ := json.Marshal(body)
-
-  resp.Body = string(stringBody)
+  resp := events.APIGatewayProxyResponse{Headers: map[string]string{"Content-Type":"application/json"}}
+	resp.StatusCode = status
+  if body!=nil{
+    stringBody, _ := json.Marshal(body)
+    resp.Body = string(stringBody)
+  }
   return &resp,nil
 }

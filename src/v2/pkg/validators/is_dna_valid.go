@@ -1,8 +1,7 @@
 package validators
 
 import (
-  "regex"
-  "string"
+  "regexp"
 )
 
 func IsDNAValid(dna []string) bool{
