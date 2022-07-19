@@ -15,6 +15,7 @@ var (
   ErrorFailedToFetchRecord = "Failed To Fetch Record"
   ErrorCouldNotMarshalItem = "Could not Marshal Item"
   ErrorCouldNotDynamoPutItem = "Could not Dynamo Put Item"
+  ErrorCouldNotConnectToAWS = "Could Not Connect To AWS"
 )
 
 type DNAChain struct {
@@ -25,7 +26,8 @@ type DNARecord struct {
   IsMutant bool `json:"isMutant, omitempty"`
 }
 
-func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
+// func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){
+func InitScanning(req events.APIGatewayProxyRequest)(*DNARecord, error){
   var dnaChain DNAChain
   if err := json.Unmarshal([]byte(req.Body), &dnaChain); err!=nil {
     return nil, errors.New(ErrorFailedToUnmarshalRecord)
@@ -40,7 +42,15 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   dnaJoin := strings.Join(dnaChain.DNA, "-")
   dnaJoin = strings.Replace(dnaJoin,"-","\",\"",-1)
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"
-  currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
+
+  err:=ConfigureDynamoDB()
+	if err!=nil {
+    return apiResponse(http.StatusBadRequest,ErrorBody{
+      aws.String(err.Error()),
+    })
+  }
+  currentDNA, _:=FetchDNARecord(dnaRecord.DNA)
+  // currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
     return &dnaRecord, errors.New("")
   }
@@ -54,13 +64,14 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
     }
   }
   // 4 - After Checking the DNA, Store DNA Chain and Validation Result on DynamoDB
-  _, err:= CreateRecordDNA(dnaRecord,tableName,dynaClient)
+  // _, err:= CreateRecordDNA(dnaRecord,tableName,dynaClient)
+  _, err:= CreateRecordDNA(dnaRecord)
   if err!=nil{
     return nil, err
   }
 
   return &dnaRecord, errors.New("")
-  
+
 }
 
 func ScanningDNA(dna []string, letter2Check string) bool {
