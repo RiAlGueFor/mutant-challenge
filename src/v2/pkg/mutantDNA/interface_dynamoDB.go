@@ -7,8 +7,8 @@ import(
 	"github.com/aws/aws-sdk-go/aws"
   "github.com/aws/aws-sdk-go/service/dynamodb"
   "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
-  // "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-  // "github.com/aws/aws-sdk-go/service/dynamodb/expression"
+  "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+  "github.com/aws/aws-sdk-go/service/dynamodb/expression"
 )
 
 // MyDynamo struct hold dynamodb connection

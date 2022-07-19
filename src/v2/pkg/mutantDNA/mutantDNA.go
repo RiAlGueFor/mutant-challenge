@@ -42,7 +42,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   dnaJoin = strings.Replace(dnaJoin,"-","\",\"",-1)
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"
 
-  ConfigureDynamoDB()
+  // ConfigureDynamoDB()
   currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
   // currentDNA, _:=FetchDNARecord(dnaRecord.DNA)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
@@ -68,7 +68,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
     return nil, err
   }
 
-  if insertItem.IsMutant {
+  if dnaRecord.IsMutant {
     return &dnaRecord, nil
   } else {
     return nil, errors.New("")
