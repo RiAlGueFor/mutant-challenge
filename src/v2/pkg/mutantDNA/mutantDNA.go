@@ -40,6 +40,8 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   dnaJoin := strings.Join(dnaChain.DNA, "-")
   dnaJoin = strings.Replace(dnaJoin,"-","\",\"",-1)
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"
+
+  ConfigureDynamoDB()
   currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
     if currentDNA.IsMutant{

@@ -24,16 +24,22 @@ type Stats struct{
   Ratio float32 `json:"ratio, omitempty"`
 }
 
-func GetStats(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
+// func GetStats(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
+// 	*events.APIGatewayProxyResponse, error,
+// ){
+func GetStats(req events.APIGatewayProxyRequest)(
 	*events.APIGatewayProxyResponse, error,
 ){
-  countMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,true)
+	mutantDNA.ConfigureDynamoDB()
+  // countMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,true)
+	countMutantDNA, err:=mutantDNA.FetchDNARecords(true)
   if err!=nil {
     return apiResponse(http.StatusBadRequest,ErrorBody{
       aws.String(err.Error()),
     })
   }
-  countNoMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,false)
+  // countNoMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,false)
+	countNoMutantDNA, err:=mutantDNA.FetchDNARecords(false)
   if err!=nil {
     return apiResponse(http.StatusBadRequest,ErrorBody{
       aws.String(err.Error()),
@@ -53,8 +59,10 @@ func GetStats(req events.APIGatewayProxyRequest, tableName string, dynaClient dy
   return apiResponse(http.StatusOK,result)
 }
 
-func CheckMutantDNA(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*events.APIGatewayProxyResponse, error){
-  _, err := mutantDNA.InitScanning(req, tableName, dynaClient)
+// func CheckMutantDNA(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*events.APIGatewayProxyResponse, error){
+func CheckMutantDNA(req events.APIGatewayProxyRequest)(*events.APIGatewayProxyResponse, error){
+  // _, err := mutantDNA.InitScanning(req, tableName, dynaClient)
+	_, err := mutantDNA.InitScanning(req)
 	if err!=nil {
     if err.Error()!="" {
       return apiResponse(http.StatusBadRequest, ErrorBody{
