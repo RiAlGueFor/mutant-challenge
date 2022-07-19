@@ -21,19 +21,14 @@ var Dyna *MyDynamo
 const tableName = "LambaDNAValidationRecords"
 
 // ConfigureDynamoDB - init func for open connection to aws dynamodb
-func ConfigureDynamoDB() error {
+func ConfigureDynamoDB() {
 	Dyna = new(MyDynamo)
   region:=os.Getenv("AWS_REGION")
-  awsSession, err:=session.NewSession(&aws.Config{
+  awsSession, _:=session.NewSession(&aws.Config{
     Region: aws.String(region)},)
-
-  if err!=nil{
-    return errors.New(ErrorCouldNotConnectToAWS)
-  }
 
 	svc := dynamodb.New(awsSession)
 	Dyna.Db = dynamodbiface.DynamoDBAPI(svc)
-  return nil
 }
 
 // func FetchDNARecord(dnaString string, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*DNARecord, error){

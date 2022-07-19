@@ -30,13 +30,8 @@ type Stats struct{
 func GetStats(req events.APIGatewayProxyRequest)(
 	*events.APIGatewayProxyResponse, error,
 ){
-	err:=mutantDNA.ConfigureDynamoDB()
-	if err!=nil {
-    return apiResponse(http.StatusBadRequest,ErrorBody{
-      aws.String(err.Error()),
-    })
-  }
-
+	mutantDNA.ConfigureDynamoDB()
+	
   // countMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,true)
 	countMutantDNA, err:=mutantDNA.FetchDNARecords(true)
   if err!=nil {
