@@ -87,7 +87,7 @@ Para seguir el ejemplo de este artículo, necesitará lo siguiente:
 
 El proyecto ha sido desarrollado en Go, inicialmente se requiere realizar los siguientes pasos para generar el ejecutable:
 
-  - En una consola de comandos nos dirigimos a la ruta del codigo (src/go-lambda-mutants)
+  - En una consola de comandos nos dirigimos a la ruta del codigo (src/v2)
   - Una vez estamos ubicados en la ruta ejecutamos los siguiente comandos
 
 ```
