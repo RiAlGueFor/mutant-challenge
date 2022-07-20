@@ -42,7 +42,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"
   currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
-    dnaRecord.IsMutant = currentDNA.IsMutat
+    dnaRecord.IsMutant = currentDNA.IsMutant
     return &dnaRecord, errors.New("")
   }
   // 3 - If it wasn't validated, go on with the validation
