@@ -6,7 +6,7 @@ La API contara con dos recursos:
  - Mutant
  - Stat
 
-Para mayor detalle del requerimiento, consulte el documento [Examen MercadoLibre Mutantes]([https://docs.aws.amazon.com/lambda/latest/dg/lambda-golang.html](https://github.com/RiAlGueFor/mutant-challenge/blob/main/docs/Examen%20Mercadolibre%20-%20Mutantes.pdf))
+Para mayor detalle del requerimiento, consulte el documento [Examen MercadoLibre Mutantes](https://github.com/RiAlGueFor/mutant-challenge/blob/main/docs/Examen%20Mercadolibre%20-%20Mutantes.pdf)
 
 ## Consumo API
 El API expuesto podra ser consumido para realizar validaciones de ADN, solo las cadenas de ADN que sean validas (sin importar si son humanas o mutantes) seran almacenadas en la base de datos DynamoDB. La API recibirá como parámetro un array de Strings que representan cada fila de una tabla de (NxN) con la secuencia del ADN. Las letras de los Strings solo pueden ser: (A,T,C,G), las cuales representa cada base nitrogenada del ADN.
