@@ -4,7 +4,7 @@ Esta aplicacion ayuda a determinar si un humano es mutante basándose en su secu
 La API contara con dos recursos:
 
  - Mutant
- - Stat
+ - Stats
 
 Para mayor detalle del requerimiento, consulte el documento [Examen MercadoLibre Mutantes](https://github.com/RiAlGueFor/mutant-challenge/blob/main/docs/Examen%20Mercadolibre%20-%20Mutantes.pdf)
 
@@ -17,7 +17,11 @@ El API sera expuesta desde AWS usando una funcion lambda definida de la siguient
 
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/api-gateway.png)
 
-### Recurso Mutants
+La definicion de API se encuentra definida en el archivo Swagger que se encuentra [aqui](https://github.com/RiAlGueFor/mutant-challenge/blob/main/docs/MutantsAPI_swagger.yaml). Por otra parte, tambien puede hacer el consumo del API con el proyecto Postman [MutantsAPI.postman_collection.json](https://github.com/RiAlGueFor/mutant-challenge/blob/main/docs/MutantsAPI.postman_collection.json)
+
+La URL expuesta para este API es 'https://vcg41iv3i4.execute-api.sa-east-1.amazonaws.com/staging', desde esta direccion se podrá consumir los recursos mutant y stats
+
+### Recurso Mutant
 Este recurso sera expuesto con el metodo POST y validara si la secuencia de ADN pertenece a un humano o a un mutante. En caso de verificar un mutante, el metodo  devolverá un HTTP 200-OK, en caso contrario un 403-Forbidden
 
 cURL de consumo: 
@@ -83,7 +87,7 @@ Para seguir el ejemplo de este artículo, necesitará lo siguiente:
 
 El proyecto ha sido desarrollado en Go, inicialmente se requiere realizar los siguientes pasos para generar el ejecutable:
 
-  - En una consola de comandos nos dirigimos a la ruta del codigo (src/go-lambda-mutants)
+  - En una consola de comandos nos dirigimos a la ruta del codigo (src/v2)
   - Una vez estamos ubicados en la ruta ejecutamos los siguiente comandos
 
 ```
