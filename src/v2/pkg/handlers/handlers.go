@@ -27,7 +27,6 @@ type Stats struct{
 func GetStats(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
 	*events.APIGatewayProxyResponse, error,
 ){
-
   countMutantDNA, err:=mutantDNA.FetchDNARecords(tableName,dynaClient,true)
   if err!=nil {
     return apiResponse(http.StatusBadRequest,ErrorBody{

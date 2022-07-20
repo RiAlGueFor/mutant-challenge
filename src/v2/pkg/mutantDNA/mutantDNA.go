@@ -15,7 +15,6 @@ var (
   ErrorFailedToFetchRecord = "Failed To Fetch Record"
   ErrorCouldNotMarshalItem = "Could not Marshal Item"
   ErrorCouldNotDynamoPutItem = "Could not Dynamo Put Item"
-  ErrorCouldNotConnectToAWS = "Could Not Connect To AWS"
 )
 
 type DNAChain struct {
@@ -41,10 +40,9 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
   dnaJoin := strings.Join(dnaChain.DNA, "-")
   dnaJoin = strings.Replace(dnaJoin,"-","\",\"",-1)
   dnaRecord.DNA = "[\""+ dnaJoin +"\"]"
-
   currentDNA, _:=FetchDNARecord(dnaRecord.DNA,tableName,dynaClient)
   if currentDNA!=nil && len(currentDNA.DNA)>0 {
-    return &dnaRecord, nil
+    return &dnaRecord, errors.New("")
   }
   // 3 - If it wasn't validated, go on with the validation
   dnaRecord.IsMutant = true
@@ -61,7 +59,7 @@ func InitScanning(req events.APIGatewayProxyRequest, tableName string, dynaClien
     return nil, err
   }
 
-  return &dnaRecord, nil
+  return &dnaRecord, errors.New("")
 
 }
 
