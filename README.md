@@ -1,10 +1,12 @@
-# Mutant Challenge API
+# Desafio API Mutantes
 Esta aplicacion ayuda a determinar si un humano es mutante basándose en su secuencia de ADN.
 
 La API contara con dos recursos:
 
  - Mutant
  - Stat
+
+Para mayor detalle del requerimiento, consulte el documento [Examen MercadoLibre Mutantes](https://github.com/RiAlGueFor/mutant-challenge/blob/main/docs/Examen%20Mercadolibre%20-%20Mutantes.pdf)
 
 ## Consumo API
 El API expuesto podra ser consumido para realizar validaciones de ADN, solo las cadenas de ADN que sean validas (sin importar si son humanas o mutantes) seran almacenadas en la base de datos DynamoDB. La API recibirá como parámetro un array de Strings que representan cada fila de una tabla de (NxN) con la secuencia del ADN. Las letras de los Strings solo pueden ser: (A,T,C,G), las cuales representa cada base nitrogenada del ADN.
@@ -68,7 +70,7 @@ Este Recurso se encuentra definido en AWS API Gateway como
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/api-gateway-GET.png)
 
 ## Cobertura
-
+![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/cover_code.png)
 
 ## Requisitos previos
 
