@@ -1,4 +1,4 @@
-# Mutant Challenge API
+# Desafio API Mutantes
 Esta aplicacion ayuda a determinar si un humano es mutante basándose en su secuencia de ADN.
 
 La API contara con dos recursos:
@@ -68,7 +68,7 @@ Este Recurso se encuentra definido en AWS API Gateway como
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/api-gateway-GET.png)
 
 ## Cobertura
-
+![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/cover_code.png)
 
 ## Requisitos previos
 
