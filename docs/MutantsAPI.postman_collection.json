@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "398c8931-4334-4356-9c2f-d33035f3a143",
+		"name": "Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9184982"
+	},
+	"item": [
+		{
+			"name": "Mutant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dna\": [\"ATGCGA\",\"CGGTGC\",\"TTATGT\",\"AGAAGG\",\"CGCGTA\",\"TCACTG\"]\n}"
+				},
+				"url": {
+					"raw": "https://vcg41iv3i4.execute-api.sa-east-1.amazonaws.com/staging/mutant",
+					"protocol": "https",
+					"host": [
+						"vcg41iv3i4",
+						"execute-api",
+						"sa-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"staging",
+						"mutant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stats",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dna\": [\n        \"TCGGAG\",\n        \"CAGTCG\",\n        \"TCGGGT\",\n        \"AGCAGG\",\n        \"TCACAG\",\n        \"CTCCTA\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://vcg41iv3i4.execute-api.sa-east-1.amazonaws.com/staging/stats",
+					"protocol": "https",
+					"host": [
+						"vcg41iv3i4",
+						"execute-api",
+						"sa-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"staging",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/mutant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dna\": [\n        \"TCGCAG\",\n        \"CAGTCG\",\n        \"TCAGGT\",\n        \"AGCAGG\",\n        \"TCACAG\",\n        \"CTCCTA\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/mutant",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"mutant"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

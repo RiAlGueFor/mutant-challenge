@@ -1,0 +1,90 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Mutans API Challenge
+  contact: {}
+host: vcg41iv3i4.execute-api.sa-east-1.amazonaws.com
+basePath: /staging
+securityDefinitions: {}
+schemes:
+- https
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /mutant:
+    post:
+      summary: Metodo que permite validar una cadena de ADN para determinar si la cadena enviada es de un Mutante o de un Humano
+      tags:
+      - Misc
+      operationId: Mutant
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: Content-Type
+        in: header
+        required: false
+        enum:
+        - application/json
+        type: string
+        description: 'JSON: Cadena de ADN'
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/MutantRequest'
+      responses:
+        '200':
+          description: 'Retornara 200(OK) si el ADN pertenece a un mutante, de lo contrario retornara 403'
+          headers: {}
+  /stats:
+    get:
+      summary: Permite obtener las estadisticas de ADN que han sido validados
+      tags:
+      - Misc
+      operationId: Stats
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: Content-Type
+        in: header
+        required: false
+        enum:
+        - application/json
+        type: string
+        description: ''
+      responses:
+        '200':
+          description: 'Retorna la cantidad de ADN mutantes y humanos que han sido validados, y la relacion existente entre ambos'
+          headers: {}
+definitions:
+  MutantRequest:
+    title: MutantRequest
+    example:
+      dna:
+      - ATGCGA
+      - CGGTGC
+      - TTATGT
+      - AGAAGG
+      - CGCGTA
+      - TCACTG
+    type: object
+    properties:
+      dna:
+        type: array
+        items:
+          type: string
+    required:
+    - dna
+tags:
+- name: Misc
+  description: ''
