@@ -17,6 +17,8 @@ El API sera expuesta desde AWS usando una funcion lambda definida de la siguient
 
 ![Table Image](https://github.com/RiAlGueFor/mutant-challenge/blob/main/img/api-gateway.png)
 
+La definicion de API se encuentra definida en el archivo Swagger que se encuentra [aqui](https://github.com/RiAlGueFor/mutant-challenge/blob/main/docs/MutantsAPI_swagger.yaml). Por otra parte, tambien puede hacer el consumo del API con el proyecto Postman [MutantsAPI.postman_collection.json](https://github.com/RiAlGueFor/mutant-challenge/blob/main/docs/MutantsAPI.postman_collection.json)
+
 ### Recurso Mutants
 Este recurso sera expuesto con el metodo POST y validara si la secuencia de ADN pertenece a un humano o a un mutante. En caso de verificar un mutante, el metodo  devolverá un HTTP 200-OK, en caso contrario un 403-Forbidden
 
