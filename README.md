@@ -109,7 +109,7 @@ Obtenemos la herramienta
 set GO111MODULE=on
 go.exe get -u github.com/aws/aws-lambda-go/cmd/build-lambda-zip
 ```
-Use la herramiento desde su GOPATH (en algunos casos puede ser GOBIN). Si tienes la instalacion por defecto de Go, la herramienta esta en la ruta  %USERPROFILE%\Go\bin.
+Use la herramienta desde su GOPATH (en algunos casos puede ser GOBIN). Si tienes la instalacion por defecto de Go, la herramienta esta en la ruta  %USERPROFILE%\Go\bin.
 
 En cmd.exe:
 ```
